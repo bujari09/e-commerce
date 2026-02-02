@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            color: #764ba2 !important;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            padding: 0.5rem 1rem !important;
+        }
+        .navbar-nav .nav-link:hover {
+            background: rgba(118, 75, 162, 0.1);
+            color: #764ba2 !important;
+        }
+        .navbar-nav .nav-link.active {
+            background: rgba(118, 75, 162, 0.2);
+            color: #764ba2 !important;
+        }
+        .container {
+            padding-top: 2rem;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .h1 {
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .contact-info {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(118, 75, 162, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .contact-item:hover {
+            background: rgba(118, 75, 162, 0.1);
+            transform: translateX(5px);
+        }
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin-right: 1rem;
+            width: 40px;
+            text-align: center;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 10px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.25);
+        }
+        .map-container {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/admin.html">
+                <i class="fas fa-tachometer-alt"></i> E-Commerce Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products.html">
+                            <i class="fas fa-box"></i> Produktet
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact.html">
+                            <i class="fas fa-envelope"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <a class="btn btn-outline-primary me-2" href="/">
+                        <i class="fas fa-store"></i> Shiko Store
+                    </a>
+                    <button class="btn btn-outline-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Dil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4 text-center fade-in">
+                    <i class="fas fa-envelope"></i> Kontakti
+                </h1>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info fade-in">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h6 class="mb-1">Adresa</h6>
+                            <p class="mb-0">Rruga "Nënë Tereza" Nr. 123<br>Tiranë, Shqipëri</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h6 class="mb-1">Telefon</h6>
+                            <p class="mb-0">+355 4 123 456<br>+355 69 123 4567</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h6 class="mb-1">Email</h6>
+                            <p class="mb-0">info@ecommerce.al<br>support@ecommerce.al</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h6 class="mb-1">Orari i Punës</h6>
+                            <p class="mb-0">Hënë - Prem: 9:00 - 18:00<br>Shtunë: 9:00 - 14:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="fab fa-facebook"></i>
+                        <div>
+                            <h6 class="mb-1">Social Media</h6>
+                            <p class="mb-0">Facebook: @ecommerce.al<br>Instagram: @ecommerce_al</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="fas fa-shipping-fast"></i>
+                        <div>
+                            <h6 class="mb-1">Dërgesa</h6>
+                            <p class="mb-0">Dërgesë në të gjithë Shqipërinë<br>24-48 orë</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form and Map -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card fade-in">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-paper-plane"></i> Dërgoni Mesazh</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Emri dhe Mbiemri</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subjekti</label>
+                                <select class="form-select" id="subject" required>
+                                    <option value="">Zgjidhni subjektin</option>
+                                    <option value="pyetje">Pyetje të përgjithshme</option>
+                                    <option value="produkt">Informacion produkti</option>
+                                    <option value="porosi">Statusi i porosisë</option>
+                                    <option value="reklamim">Reklamim dhe kthim</option>
+                                    <option value="teknik">Asistencë teknike</option>
+                                    <option value="tjeter">Tjetër</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mesazhi</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-paper-plane"></i> Dërgo Mesazhin
+                            </button>
+                        </form>
+                        <div id="contactMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="map-container fade-in">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.7647294347!2d19.8187!3d41.3278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDE5JzQwLjEiTiAxOcKwNDknMDcuMiJF!5e0!3m2!1ssq!2s!4v1234567890"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card fade-in">
+                    <div class="card-header bg-secondary text-white">
+                        <h5><i class="fas fa-info-circle"></i> Informacione të Mëtejshme</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-truck"></i> Metodat e Dërgesës</h6>
+                                <ul>
+                                    <li>Dërgesë standarde (24-48 orë) - 300 Lekë</li>
+                                    <li>Dërgesë ekspres (të njëjtën ditë) - 500 Lekë</li>
+                                    <li>Marrja në dykan (Falas)</li>
+                                    <li>Dërgesë ndërkombëtare (kontaktoni)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-credit-card"></i> Metodat e Pagesës</h6>
+                                <ul>
+                                    <li>Paguaj në dorëzim (Cash on Delivery)</li>
+                                    <li>Kartë krediti/debiti</li>
+                                    <li>Bank transfer</li>
+                                    <li>PayPal</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-undo"></i> Politika e Kthimit</h6>
+                                <p>Kthimi i produkteve është i mundur brenda 14 ditëve nga data e blerjes, me kusht që produkti të jetë i papërdorur dhe në paketimin origjinal.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-shield-alt"></i> Garancia</h6>
+                                <p>Të gjitha produktet kanë garanci minimale 12 muaj. Për informacion më të detajuar, kontaktoni departamentin tonë të asistencës.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Simulate form submission
+            const messageDiv = document.getElementById('contactMessage');
+            messageDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> Mesazhi juaj u dërgua me sukses! Do të ju përgjigjimi brenda 24 orëve.
+                </div>
+            `;
+            
+            // Reset form
+            this.reset();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = '/login.html';
+        }
+    </script>
+</body>
+</html>

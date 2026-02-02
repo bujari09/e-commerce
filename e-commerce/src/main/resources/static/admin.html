@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            color: #764ba2 !important;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            padding: 0.5rem 1rem !important;
+        }
+        .navbar-nav .nav-link:hover {
+            background: rgba(118, 75, 162, 0.1);
+            color: #764ba2 !important;
+        }
+        .navbar-nav .nav-link.active {
+            background: rgba(118, 75, 162, 0.2);
+            color: #764ba2 !important;
+        }
+        .navbar-toggler {
+            border: 1px solid rgba(118, 75, 162, 0.3);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28118, 75, 162, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .container {
+            padding-top: 2rem;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            border: none;
+            padding: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+        .card-header h5 {
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .bg-info { background: linear-gradient(135deg, #17a2b8, #138496) !important; }
+        .bg-success { background: linear-gradient(135deg, #28a745, #1e7e34) !important; }
+        .bg-warning { background: linear-gradient(135deg, #ffc107, #e0a800) !important; }
+        .bg-secondary { background: linear-gradient(135deg, #6c757d, #545b62) !important; }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.25);
+        }
+        .btn {
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-info { background: linear-gradient(135deg, #17a2b8, #138496); }
+        .btn-success { background: linear-gradient(135deg, #28a745, #1e7e34); }
+        .btn-warning { background: linear-gradient(135deg, #ffc107, #e0a800); color: #212529; }
+        
+        .list-group-item {
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .h1 {
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .data-display-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/admin.html">
+                <i class="fas fa-tachometer-alt"></i> E-Commerce Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products.html">
+                            <i class="fas fa-box"></i> Produktet
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact.html">
+                            <i class="fas fa-envelope"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <a class="btn btn-outline-primary me-2" href="/">
+                        <i class="fas fa-store"></i> Shiko Store
+                    </a>
+                    <button class="btn btn-outline-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Dil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4 text-center fade-in">
+                    <i class="fas fa-tachometer-alt"></i> Paneli i Administrimit
+                </h1>
+            </div>
+        </div>
+
+        <!-- Suppliers Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card fade-in">
+                    <div class="card-header bg-info text-white">
+                        <h5><i class="fas fa-truck"></i> Shto Furnizues</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="supplierForm">
+                            <div class="mb-3">
+                                <label for="supplierName" class="form-label">Emri i Furnizuesit</label>
+                                <input type="text" class="form-control" id="supplierName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="supplierEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="supplierEmail">
+                            </div>
+                            <div class="mb-3">
+                                <label for="supplierPhone" class="form-label">Telefon</label>
+                                <input type="tel" class="form-control" id="supplierPhone">
+                            </div>
+                            <button type="submit" class="btn btn-info">
+                                <i class="fas fa-plus"></i> Shto Furnizuesin
+                            </button>
+                        </form>
+                        <div id="supplierMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card fade-in">
+                    <div class="card-header bg-success text-white">
+                        <h5><i class="fas fa-tags"></i> Shto Kategori</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="categoryForm">
+                            <div class="mb-3">
+                                <label for="categoryName" class="form-label">Emri i Kategorisë</label>
+                                <input type="text" class="form-control" id="categoryName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoryDescription" class="form-label">Përshkrimi</label>
+                                <textarea class="form-control" id="categoryDescription" rows="2"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-plus"></i> Shto Kategorinë
+                            </button>
+                        </form>
+                        <div id="categoryMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card fade-in">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-box"></i> Shto Produkt</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="productForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="productName" class="form-label">Emri i Produktit</label>
+                                        <input type="text" class="form-control" id="productName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="productPrice" class="form-label">Çmimi</label>
+                                        <input type="number" step="0.01" class="form-control" id="productPrice" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="productCategory" class="form-label">Kategoria</label>
+                                        <select class="form-control" id="productCategory">
+                                            <option value="">Zgjidh kategorinë</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="productSupplier" class="form-label">Furnizuesi</label>
+                                        <select class="form-control" id="productSupplier">
+                                            <option value="">Zgjidh furnizuesin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productDescription" class="form-label">Përshkrimi</label>
+                                <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="productStock" class="form-label">Sasia në Stok</label>
+                                        <input type="number" class="form-control" id="productStock" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="productStatus" class="form-label">Statusi</label>
+                                        <select class="form-control" id="productStatus">
+                                            <option value="active">Aktiv</option>
+                                            <option value="inactive">Jo Aktiv</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="productImageUrl" class="form-label">URL Imazhi</label>
+                                        <input type="url" class="form-control" id="productImageUrl">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-plus"></i> Shto Produktin
+                            </button>
+                        </form>
+                        <div id="productMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Data Display Section -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card data-display-card fade-in">
+                    <div class="card-header bg-secondary text-white">
+                        <h5><i class="fas fa-database"></i> Të Dhënat Ekzistuese</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6>Furnizuesit</h6>
+                                <div id="suppliersList" class="list-group"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Kategoritë</h6>
+                                <div id="categoriesList" class="list-group"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Produktet</h6>
+                                <div id="productsList" class="list-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:8081/api';
+
+        // Check authentication
+        function checkAuth() {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Utility functions
+        function showMessage(elementId, message, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>`;
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 5000);
+        }
+
+        function clearForm(formId) {
+            document.getElementById(formId).reset();
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/auth/logout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.log('Logout error:', error);
+            }
+            
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('authToken');
+            window.location.href = '/login.html';
+        }
+
+        // API functions
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+            
+            if (data && method !== 'GET') {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Handle 204 No Content responses (DELETE operations)
+                if (response.status === 204) {
+                    return null;
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API call failed:', error);
+                throw error;
+            }
+        }
+
+        // Suppliers functions
+        function handleSupplierSubmit(e) {
+            e.preventDefault();
+            
+            const supplierData = {
+                name: document.getElementById('supplierName').value,
+                email: document.getElementById('supplierEmail').value,
+                phone: document.getElementById('supplierPhone').value
+            };
+            
+            apiCall('/suppliers', 'POST', supplierData)
+                .then(() => {
+                    showMessage('supplierMessage', 'Furnizuesi u shtua me sukses!', 'success');
+                    clearForm('supplierForm');
+                    loadSuppliers();
+                    loadSuppliersForProduct();
+                })
+                .catch(error => {
+                    showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
+                });
+        }
+
+        document.getElementById('supplierForm').addEventListener('submit', handleSupplierSubmit);
+
+        async function loadSuppliers() {
+            try {
+                const suppliers = await apiCall('/suppliers');
+                const suppliersList = document.getElementById('suppliersList');
+                suppliersList.innerHTML = suppliers.map(supplier => 
+                    `<div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${supplier.name}</strong>
+                            ${supplier.email ? `<br><small class="text-muted">${supplier.email}</small>` : ''}
+                            <small class="text-muted">(ID: ${supplier.id})</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-warning me-1" onclick="editSupplier(${supplier.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteSupplier(${supplier.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>`
+                ).join('');
+            } catch (error) {
+                console.error('Failed to load suppliers:', error);
+            }
+        }
+
+        async function loadSuppliersForProduct() {
+            try {
+                const suppliers = await apiCall('/suppliers');
+                const productSupplier = document.getElementById('productSupplier');
+                productSupplier.innerHTML = '<option value="">Zgjidh furnizuesin</option>' +
+                    suppliers.map(supplier => 
+                        `<option value="${supplier.id}">${supplier.name}</option>`
+                    ).join('');
+            } catch (error) {
+                console.error('Failed to load suppliers for product:', error);
+            }
+        }
+
+        // Categories functions
+        function handleCategorySubmit(e) {
+            e.preventDefault();
+            
+            const categoryName = document.getElementById('categoryName').value;
+            const categoryDescription = document.getElementById('categoryDescription').value;
+            
+            apiCall('/categories', 'POST', { 
+                name: categoryName, 
+                description: categoryDescription 
+            })
+                .then(() => {
+                    showMessage('categoryMessage', 'Kategoria u shtua me sukses!', 'success');
+                    clearForm('categoryForm');
+                    loadCategories();
+                    loadCategoriesForProduct();
+                })
+                .catch(error => {
+                    showMessage('categoryMessage', 'Gabim: ' + error.message, 'danger');
+                });
+        }
+
+        document.getElementById('categoryForm').addEventListener('submit', handleCategorySubmit);
+
+        async function loadCategories() {
+            try {
+                const categories = await apiCall('/categories');
+                const categoriesList = document.getElementById('categoriesList');
+                categoriesList.innerHTML = categories.map(category => 
+                    `<div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${category.name}</strong>
+                            ${category.description ? `<br><small class="text-muted">${category.description}</small>` : ''}
+                            <small class="text-muted">(ID: ${category.id})</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-warning me-1" onclick="editCategory(${category.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteCategory(${category.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>`
+                ).join('');
+            } catch (error) {
+                console.error('Failed to load categories:', error);
+            }
+        }
+
+        async function loadCategoriesForProduct() {
+            try {
+                const categories = await apiCall('/categories');
+                const productCategory = document.getElementById('productCategory');
+                productCategory.innerHTML = '<option value="">Zgjidh kategorinë</option>' +
+                    categories.map(category => 
+                        `<option value="${category.id}">${category.name}</option>`
+                    ).join('');
+            } catch (error) {
+                console.error('Failed to load categories for product:', error);
+            }
+        }
+
+        // Products functions
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            
+            const categoryId = document.getElementById('productCategory').value;
+            const supplierId = document.getElementById('productSupplier').value;
+            const productData = {
+                name: document.getElementById('productName').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                description: document.getElementById('productDescription').value,
+                stockQuantity: parseInt(document.getElementById('productStock').value) || 0,
+                status: document.getElementById('productStatus').value,
+                imageUrl: document.getElementById('productImageUrl').value,
+                categoryId: categoryId ? parseInt(categoryId) : null,
+                supplierId: supplierId ? parseInt(supplierId) : null
+            };
+            
+            apiCall('/products', 'POST', productData)
+                .then(() => {
+                    showMessage('productMessage', 'Produkti u shtua me sukses!', 'success');
+                    clearForm('productForm');
+                    loadProducts();
+                })
+                .catch(error => {
+                    showMessage('productMessage', 'Gabim: ' + error.message, 'danger');
+                });
+        }
+
+        document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
+
+        async function loadProducts() {
+            try {
+                const products = await apiCall('/products');
+                const productsList = document.getElementById('productsList');
+                productsList.innerHTML = products.map(product => 
+                    `<div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${product.name}</strong>
+                            <br><small class="text-success">€${product.price}</small>
+                            <br><small class="text-muted">Stok: ${product.stockQuantity} | Status: ${product.status}</small>
+                            <small class="text-muted">(ID: ${product.id})</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-warning me-1" onclick="editProduct(${product.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>`
+                ).join('');
+            } catch (error) {
+                console.error('Failed to load products:', error);
+            }
+        }
+
+        // DELETE and EDIT functions for Suppliers
+        async function deleteSupplier(id) {
+            if (confirm('A jeni i sigurt që doni të fshini këtë furnizues?')) {
+                try {
+                    await apiCall(`/suppliers/${id}`, 'DELETE');
+                    showMessage('supplierMessage', 'Furnizuesi u fshi me sukses!', 'success');
+                    loadSuppliers();
+                } catch (error) {
+                    showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
+                }
+            }
+        }
+
+        async function editSupplier(id) {
+            try {
+                const supplier = await apiCall(`/suppliers/${id}`);
+                document.getElementById('supplierName').value = supplier.name;
+                document.getElementById('supplierEmail').value = supplier.email || '';
+                document.getElementById('supplierPhone').value = supplier.phone || '';
+                
+                // Change form to update mode
+                const form = document.getElementById('supplierForm');
+                form.onsubmit = async (e) => {
+                    e.preventDefault();
+                    const updatedSupplier = {
+                        name: document.getElementById('supplierName').value,
+                        email: document.getElementById('supplierEmail').value,
+                        phone: document.getElementById('supplierPhone').value
+                    };
+                    
+                    try {
+                        await apiCall(`/suppliers/${id}`, 'PUT', updatedSupplier);
+                        showMessage('supplierMessage', 'Furnizuesi u përditësua me sukses!', 'success');
+                        clearForm('supplierForm');
+                        loadSuppliers();
+                        // Reset form to create mode
+                        form.onsubmit = handleSupplierSubmit;
+                    } catch (error) {
+                        showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
+                    }
+                };
+            } catch (error) {
+                showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
+            }
+        }
+
+        // DELETE and EDIT functions for Categories
+        async function deleteCategory(id) {
+            if (confirm('A jeni i sigurt që doni të fshini këtë kategori?')) {
+                try {
+                    await apiCall(`/categories/${id}`, 'DELETE');
+                    showMessage('categoryMessage', 'Kategoria u fshi me sukses!', 'success');
+                    loadCategories();
+                } catch (error) {
+                    showMessage('categoryMessage', 'Gabim: ' + error.message, 'danger');
+                }
+            }
+        }
+
+        async function editCategory(id) {
+            try {
+                const category = await apiCall(`/categories/${id}`);
+                document.getElementById('categoryName').value = category.name;
+                document.getElementById('categoryDescription').value = category.description || '';
+                
+                // Change form to update mode
+                const form = document.getElementById('categoryForm');
+                form.onsubmit = async (e) => {
+                    e.preventDefault();
+                    const updatedCategory = {
+                        name: document.getElementById('categoryName').value,
+                        description: document.getElementById('categoryDescription').value
+                    };
+                    
+                    try {
+                        await apiCall(`/categories/${id}`, 'PUT', updatedCategory);
+                        showMessage('categoryMessage', 'Kategoria u përditësua me sukses!', 'success');
+                        clearForm('categoryForm');
+                        loadCategories();
+                        // Reset form to create mode
+                        form.onsubmit = handleCategorySubmit;
+                    } catch (error) {
+                        showMessage('categoryMessage', 'Gabim: ' + error.message, 'danger');
+                    }
+                };
+            } catch (error) {
+                showMessage('categoryMessage', 'Gabim: ' + error.message, 'danger');
+            }
+        }
+
+        // DELETE and EDIT functions for Products
+        async function deleteProduct(id) {
+            if (confirm('A jeni i sigurt që doni të fshini këtë produkt?')) {
+                try {
+                    await apiCall(`/products/${id}`, 'DELETE');
+                    showMessage('productMessage', 'Produkti u fshi me sukses!', 'success');
+                    loadProducts();
+                } catch (error) {
+                    showMessage('productMessage', 'Gabim: ' + error.message, 'danger');
+                }
+            }
+        }
+
+        async function editProduct(id) {
+            try {
+                const product = await apiCall(`/products/${id}`);
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productDescription').value = product.description || '';
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productStock').value = product.stockQuantity;
+                document.getElementById('productStatus').value = product.status;
+                document.getElementById('productImageUrl').value = product.imageUrl || '';
+                
+                // Load categories and suppliers for dropdowns
+                await loadCategoriesForProduct();
+                await loadSuppliersForProduct();
+                
+                // Set selected values
+                if (product.categoryId) {
+                    document.getElementById('productCategory').value = product.categoryId;
+                }
+                if (product.supplierId) {
+                    document.getElementById('productSupplier').value = product.supplierId;
+                }
+                
+                // Change form to update mode
+                const form = document.getElementById('productForm');
+                form.onsubmit = async (e) => {
+                    e.preventDefault();
+                    const updatedProduct = {
+                        name: document.getElementById('productName').value,
+                        description: document.getElementById('productDescription').value,
+                        price: parseFloat(document.getElementById('productPrice').value),
+                        stockQuantity: parseInt(document.getElementById('productStock').value),
+                        status: document.getElementById('productStatus').value,
+                        imageUrl: document.getElementById('productImageUrl').value,
+                        categoryId: document.getElementById('productCategory').value ? parseInt(document.getElementById('productCategory').value) : null,
+                        supplierId: document.getElementById('productSupplier').value ? parseInt(document.getElementById('productSupplier').value) : null
+                    };
+                    
+                    try {
+                        await apiCall(`/products/${id}`, 'PUT', updatedProduct);
+                        showMessage('productMessage', 'Produkti u përditësua me sukses!', 'success');
+                        clearForm('productForm');
+                        loadProducts();
+                        // Reset form to create mode
+                        form.onsubmit = handleProductSubmit;
+                    } catch (error) {
+                        showMessage('productMessage', 'Gabim: ' + error.message, 'danger');
+                    }
+                };
+            } catch (error) {
+                showMessage('productMessage', 'Gabim: ' + error.message, 'danger');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadSuppliers();
+            loadCategories();
+            loadProducts();
+            loadCategoriesForProduct();
+            loadSuppliersForProduct();
+        });
+
+        // Refresh data every 30 seconds
+        setInterval(() => {
+            loadSuppliers();
+            loadCategories();
+            loadProducts();
+        }, 30000);
+    </script>
+</body>
+</html>

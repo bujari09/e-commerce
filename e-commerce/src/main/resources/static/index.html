@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce - Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            color: #764ba2 !important;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            padding: 0.5rem 1rem !important;
+        }
+        .navbar-nav .nav-link:hover {
+            background: rgba(118, 75, 162, 0.1);
+            color: #764ba2 !important;
+        }
+        .navbar-nav .nav-link.active {
+            background: rgba(118, 75, 162, 0.2);
+            color: #764ba2 !important;
+        }
+        .container {
+            padding-top: 2rem;
+        }
+        .search-input-group {
+            width: 300px;
+        }
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .product-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .product-card .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #764ba2;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 10px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card .old-price {
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        .badge-discount {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .category-buttons .btn {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        .category-buttons .btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .rating .fa-star {
+            color: #ffc107;
+        }
+        .filter-section {
+            margin-bottom: 25px;
+        }
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-shopping-bag"></i> E-Commerce
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Ballina</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products.html">Produkte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact.html">Kontakt</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="search-input-group input-group me-3">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Kërkoni produkte...">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <a href="/admin.html" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </a>
+                    <a href="/login.html" class="btn btn-outline-primary">
+                        <i class="fas fa-user"></i> Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="sidebar fade-in">
+                    <!-- Categories -->
+                    <div class="filter-section">
+                        <div class="filter-title">
+                            <i class="fas fa-list"></i> Kategoritë
+                        </div>
+                        <div class="category-buttons">
+                            <button class="btn btn-outline-secondary active" data-category="">
+                                <i class="fas fa-th"></i> Të gjitha
+                            </button>
+                            <!-- Categories will be loaded dynamically from database -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="col-md-9">
+                <div class="fade-in">
+                    <!-- Sorting -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5>Shfaqen <span id="productCount">12</span> produkte</h5>
+                    <select class="form-select" style="width: 200px;">
+                        <option>Rendit sipas</option>
+                        <option>Cmimi: i ulët → i lartë</option>
+                        <option>Cmimi: i lartë → i ulët</option>
+                        <option>Më të shiturat</option>
+                        <option>Më të rejat</option>
+                    </select>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="row" id="productsContainer">
+                    <!-- Products will be loaded here -->
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:8081/api';
+        let allProducts = [];
+        let allCategories = [];
+        let currentCategory = '';
+
+        // Load categories
+        async function loadCategories() {
+            try {
+                const categories = await fetch(`${API_BASE}/categories`).then(res => res.json());
+                allCategories = categories;
+                
+                // Update category buttons with real categories
+                const categoryButtons = document.querySelector('.category-buttons');
+                categoryButtons.innerHTML = `
+                    <button class="btn btn-outline-secondary active" data-category="">
+                        <i class="fas fa-th"></i> Të gjitha
+                    </button>
+                ` + categories.map(category => `
+                    <button class="btn btn-outline-secondary" data-category="${category.id}">
+                        <i class="fas fa-tag"></i> ${category.name}
+                    </button>
+                `).join('');
+                
+                // Re-attach event listeners to new buttons
+                document.querySelectorAll('[data-category]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('[data-category]').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        currentCategory = e.target.dataset.category;
+                        loadProducts();
+                    });
+                });
+            } catch (error) {
+                console.error('Failed to load categories:', error);
+            }
+        }
+
+        // Load products
+        async function loadProducts() {
+            try {
+                let products = await fetch(`${API_BASE}/products`).then(res => res.json());
+                allProducts = products;
+                
+                // Apply filters
+                products = filterProducts(products);
+                
+                const productsContainer = document.getElementById('productsContainer');
+                document.getElementById('productCount').textContent = products.length;
+                
+                if (products.length === 0) {
+                    productsContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center">Nuk u gjetën produkte.</p></div>';
+                    return;
+                }
+                
+                productsContainer.innerHTML = products.map(product => {
+                    const imageUrl = product.imageUrl || `https://picsum.photos/seed/${product.id}/300/200.jpg`;
+                    const isOutOfStock = product.stockQuantity <= 0;
+                    const category = allCategories.find(c => c.id === product.categoryId);
+                    const hasDiscount = Math.random() > 0.7; // Random discount for demo
+                    const discountPercent = hasDiscount ? Math.floor(Math.random() * 30) + 10 : 0;
+                    const oldPrice = hasDiscount ? (product.price * (1 + discountPercent / 100)).toFixed(2) : null;
+                    
+                    return `
+                        <div class="col-md-4 mb-4 fade-in">
+                            <div class="card product-card h-100">
+                                ${hasDiscount ? `<div class="badge-discount">-${discountPercent}%</div>` : ''}
+                                <img src="${imageUrl}" class="card-img-top" alt="${product.name}">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="mb-2">
+                                        ${category ? `<span class="badge bg-primary me-1">${category.name}</span>` : ''}
+                                        <span class="badge ${isOutOfStock ? 'bg-danger' : 'bg-success'}">
+                                            ${isOutOfStock ? 'Out of Stock' : 'In Stock'}
+                                        </span>
+                                    </div>
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="card-text flex-grow-1">${product.description || 'Produkt i kualitetit të lartë'}</p>
+                                    <div class="rating mb-2">
+                                        ${generateStars()}
+                                        <small class="text-muted">(${Math.floor(Math.random() * 100) + 10})</small>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <div>
+                                            <span class="product-price">€${product.price}</span>
+                                            ${oldPrice ? `<span class="old-price">€${oldPrice}</span>` : ''}
+                                        </div>
+                                        <small class="text-muted">Stok: ${product.stockQuantity}</small>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 w-100" ${isOutOfStock ? 'disabled' : ''}>
+                                        <i class="fas fa-shopping-cart"></i> Shto në Shportë
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Failed to load products:', error);
+                document.getElementById('productsContainer').innerHTML = 
+                    '<div class="col-12"><p class="text-danger text-center">Gabim në ngarkimin e produkteve.</p></div>';
+            }
+        }
+
+        function generateStars() {
+            const rating = Math.floor(Math.random() * 2) + 3; // 3-5 stars
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function filterProducts(products) {
+            return products.filter(product => {
+                if (currentCategory && product.categoryId != currentCategory) return false;
+                return true;
+            });
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = allProducts.filter(p => 
+                p.name.toLowerCase().includes(searchTerm) ||
+                (p.description && p.description.toLowerCase().includes(searchTerm))
+            );
+            displayFilteredProducts(filtered);
+        });
+
+        function displayFilteredProducts(products) {
+            const productsContainer = document.getElementById('productsContainer');
+            document.getElementById('productCount').textContent = products.length;
+            
+            if (products.length === 0) {
+                productsContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center">Nuk u gjetën produkte.</p></div>';
+                return;
+            }
+            
+            // Reuse the same product display logic as loadProducts
+            loadProducts();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCategories();
+            loadProducts();
+        });
+    </script>
+</body>
+</html>
