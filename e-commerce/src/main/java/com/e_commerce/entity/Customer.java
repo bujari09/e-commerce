@@ -5,22 +5,27 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "suppliers")
+@Table(name = "customers")
 @Data
-public class Supplier {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = true)
-    private Long userId;
+    @Column(nullable = false)
+    private String firstName;
 
     @Column(nullable = false)
-    private String name;
+    private String lastName;
 
-    private String email;
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
     private String phone;
-    private String password;
+
+    @Column(nullable = false)
+    private String email;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

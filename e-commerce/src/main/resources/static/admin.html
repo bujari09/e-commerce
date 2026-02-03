@@ -158,23 +158,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin.html">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products.html">
-                            <i class="fas fa-box"></i> Produktet
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact.html">
-                            <i class="fas fa-envelope"></i> Contact
-                        </a>
-                    </li>
-                </ul>
                 <div class="navbar-nav">
                     <a class="btn btn-outline-primary me-2" href="/">
                         <i class="fas fa-store"></i> Shiko Store
@@ -198,7 +181,7 @@
 
         <!-- Suppliers Section -->
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="card fade-in">
                     <div class="card-header bg-info text-white">
                         <h5><i class="fas fa-truck"></i> Shto Furnizues</h5>
@@ -211,7 +194,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="supplierEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="supplierEmail">
+                                <input type="email" class="form-control" id="supplierEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="supplierPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="supplierPassword" placeholder="Password për login supplier">
                             </div>
                             <div class="mb-3">
                                 <label for="supplierPhone" class="form-label">Telefon</label>
@@ -220,8 +207,18 @@
                             <button type="submit" class="btn btn-info">
                                 <i class="fas fa-plus"></i> Shto Furnizuesin
                             </button>
+                            <div id="supplierMessage" class="mt-3"></div>
                         </form>
-                        <div id="supplierMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card fade-in">
+                    <div class="card-header bg-secondary text-white">
+                        <h5><i class="fas fa-list"></i> Lista e Furnizuesve</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="suppliersList" class="list-group"></div>
                     </div>
                 </div>
             </div>
@@ -229,7 +226,7 @@
 
         <!-- Categories Section -->
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="card fade-in">
                     <div class="card-header bg-success text-white">
                         <h5><i class="fas fa-tags"></i> Shto Kategori</h5>
@@ -247,8 +244,18 @@
                             <button type="submit" class="btn btn-success">
                                 <i class="fas fa-plus"></i> Shto Kategorinë
                             </button>
+                            <div id="categoryMessage" class="mt-3"></div>
                         </form>
-                        <div id="categoryMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card fade-in">
+                    <div class="card-header bg-secondary text-white">
+                        <h5><i class="fas fa-list"></i> Lista e Kategorive</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="categoriesList" class="list-group"></div>
                     </div>
                 </div>
             </div>
@@ -256,7 +263,7 @@
 
         <!-- Products Section -->
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="card fade-in">
                     <div class="card-header bg-warning text-dark">
                         <h5><i class="fas fa-box"></i> Shto Produkt</h5>
@@ -325,39 +332,40 @@
                             <button type="submit" class="btn btn-warning">
                                 <i class="fas fa-plus"></i> Shto Produktin
                             </button>
+                            <div id="productMessage" class="mt-3"></div>
                         </form>
-                        <div id="productMessage" class="mt-3"></div>
                     </div>
                 </div>
             </div>
-
-        <!-- Data Display Section -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card data-display-card fade-in">
+            <div class="col-md-6">
+                <div class="card fade-in">
                     <div class="card-header bg-secondary text-white">
-                        <h5><i class="fas fa-database"></i> Të Dhënat Ekzistuese</h5>
+                        <h5><i class="fas fa-list"></i> Lista e Produktëve</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h6>Furnizuesit</h6>
-                                <div id="suppliersList" class="list-group"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <h6>Kategoritë</h6>
-                                <div id="categoriesList" class="list-group"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <h6>Produktet</h6>
-                                <div id="productsList" class="list-group"></div>
-                            </div>
+                        <div id="productsList" class="list-group"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card fade-in">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-shopping-cart"></i> Porositë e Klientëve</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="ordersList">
+                            <!-- Orders will be loaded here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -442,6 +450,7 @@
             const supplierData = {
                 name: document.getElementById('supplierName').value,
                 email: document.getElementById('supplierEmail').value,
+                password: document.getElementById('supplierPassword').value || 'password',
                 phone: document.getElementById('supplierPhone').value
             };
             
@@ -450,7 +459,6 @@
                     showMessage('supplierMessage', 'Furnizuesi u shtua me sukses!', 'success');
                     clearForm('supplierForm');
                     loadSuppliers();
-                    loadSuppliersForProduct();
                 })
                 .catch(error => {
                     showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
@@ -471,11 +479,8 @@
                             <small class="text-muted">(ID: ${supplier.id})</small>
                         </div>
                         <div>
-                            <button class="btn btn-sm btn-warning me-1" onclick="editSupplier(${supplier.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
                             <button class="btn btn-sm btn-danger" onclick="deleteSupplier(${supplier.id})">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash"></i> Fshij
                             </button>
                         </div>
                     </div>`
@@ -534,11 +539,8 @@
                             <small class="text-muted">(ID: ${category.id})</small>
                         </div>
                         <div>
-                            <button class="btn btn-sm btn-warning me-1" onclick="editCategory(${category.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
                             <button class="btn btn-sm btn-danger" onclick="deleteCategory(${category.id})">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash"></i> Fshij
                             </button>
                         </div>
                     </div>`
@@ -604,11 +606,8 @@
                             <small class="text-muted">(ID: ${product.id})</small>
                         </div>
                         <div>
-                            <button class="btn btn-sm btn-warning me-1" onclick="editProduct(${product.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
                             <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.id})">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash"></i> Fshij
                             </button>
                         </div>
                     </div>`
@@ -618,7 +617,7 @@
             }
         }
 
-        // DELETE and EDIT functions for Suppliers
+        // DELETE functions for Suppliers
         async function deleteSupplier(id) {
             if (confirm('A jeni i sigurt që doni të fshini këtë furnizues?')) {
                 try {
@@ -627,52 +626,6 @@
                     loadSuppliers();
                 } catch (error) {
                     showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
-                }
-            }
-        }
-
-        async function editSupplier(id) {
-            try {
-                const supplier = await apiCall(`/suppliers/${id}`);
-                document.getElementById('supplierName').value = supplier.name;
-                document.getElementById('supplierEmail').value = supplier.email || '';
-                document.getElementById('supplierPhone').value = supplier.phone || '';
-                
-                // Change form to update mode
-                const form = document.getElementById('supplierForm');
-                form.onsubmit = async (e) => {
-                    e.preventDefault();
-                    const updatedSupplier = {
-                        name: document.getElementById('supplierName').value,
-                        email: document.getElementById('supplierEmail').value,
-                        phone: document.getElementById('supplierPhone').value
-                    };
-                    
-                    try {
-                        await apiCall(`/suppliers/${id}`, 'PUT', updatedSupplier);
-                        showMessage('supplierMessage', 'Furnizuesi u përditësua me sukses!', 'success');
-                        clearForm('supplierForm');
-                        loadSuppliers();
-                        // Reset form to create mode
-                        form.onsubmit = handleSupplierSubmit;
-                    } catch (error) {
-                        showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
-                    }
-                };
-            } catch (error) {
-                showMessage('supplierMessage', 'Gabim: ' + error.message, 'danger');
-            }
-        }
-
-        // DELETE and EDIT functions for Categories
-        async function deleteCategory(id) {
-            if (confirm('A jeni i sigurt që doni të fshini këtë kategori?')) {
-                try {
-                    await apiCall(`/categories/${id}`, 'DELETE');
-                    showMessage('categoryMessage', 'Kategoria u fshi me sukses!', 'success');
-                    loadCategories();
-                } catch (error) {
-                    showMessage('categoryMessage', 'Gabim: ' + error.message, 'danger');
                 }
             }
         }
@@ -708,13 +661,12 @@
             }
         }
 
-        // DELETE and EDIT functions for Products
-        async function deleteProduct(id) {
-            if (confirm('A jeni i sigurt që doni të fshini këtë produkt?')) {
+        async function deleteCategory(id) {
+            if (confirm('A jeni i sigurt që doni të fshini këtë kategorinë?')) {
                 try {
-                    await apiCall(`/products/${id}`, 'DELETE');
-                    showMessage('productMessage', 'Produkti u fshi me sukses!', 'success');
-                    loadProducts();
+                    await apiCall(`/categories/${id}`, 'DELETE');
+                    showMessage('categoryMessage', 'Kategoria u fshi me sukses!', 'success');
+                    loadCategories();
                 } catch (error) {
                     showMessage('productMessage', 'Gabim: ' + error.message, 'danger');
                 }
@@ -774,14 +726,116 @@
             }
         }
 
+        // Load orders
+        async function loadOrders() {
+            try {
+                const orders = await apiCall('/orders');
+                const ordersList = document.getElementById('ordersList');
+                
+                if (orders.length === 0) {
+                    ordersList.innerHTML = '<p class="text-center text-muted">Nuk ka porosi ende</p>';
+                    return;
+                }
+                
+                ordersList.innerHTML = orders.map(order => `
+                    <div class="card mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Porosia #${order.id}</h6>
+                                <small class="text-muted">${order.orderDate || 'Data e panjohur'}</small>
+                            </div>
+                            <div>
+                                <span class="badge ${getStatusColor(order.status)}">${getStatusText(order.status)}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Informata Klienti:</h6>
+                                    <p class="mb-1">
+                                        <strong>Emri:</strong> ${order.firstName} ${order.lastName}<br>
+                                        <strong>Email:</strong> ${order.email}<br>
+                                        <strong>Telefon:</strong> ${order.phone}<br>
+                                        <strong>Adresa:</strong> ${order.address}
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Detajet e Porosisë:</h6>
+                                    <p class="mb-1">
+                                        <strong>Totali:</strong> €${order.totalAmount}<br>
+                                        <strong>Status:</strong> ${getStatusText(order.status)}
+                                    </p>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-sm btn-success" onclick="updateOrderStatus(${order.id}, 'paid')">
+                                            <i class="fas fa-check"></i> Paguar
+                                        </button>
+                                        <button class="btn btn-sm btn-info" onclick="updateOrderStatus(${order.id}, 'shipped')">
+                                            <i class="fas fa-truck"></i> Dërguar
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="updateOrderStatus(${order.id}, 'cancelled')">
+                                            <i class="fas fa-times"></i> Anulo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load orders:', error);
+                document.getElementById('ordersList').innerHTML = '<p class="text-danger">Gabim në ngarkimin e porosive</p>';
+            }
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'pending': return 'bg-warning';
+                case 'paid': return 'bg-success';
+                case 'shipped': return 'bg-info';
+                case 'cancelled': return 'bg-danger';
+                default: return 'bg-secondary';
+            }
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return 'Në Pritje';
+                case 'paid': return 'Paguar';
+                case 'shipped': return 'Dërguar';
+                case 'cancelled': return 'Anuluar';
+                default: return status;
+            }
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                await apiCall(`/orders/${orderId}/status?status=${newStatus}`, 'PUT');
+                showMessage('ordersMessage', 'Statusi i porosisë u përditësua!', 'success');
+                loadOrders();
+            } catch (error) {
+                showMessage('ordersMessage', 'Gabim: ' + error.message, 'danger');
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (confirm('A jeni i sigurt që doni të fshini këtë produkt?')) {
+                try {
+                    await apiCall(`/products/${id}`, 'DELETE');
+                    showMessage('productMessage', 'Produkti u fshi me sukses!', 'success');
+                    loadProducts();
+                } catch (error) {
+                    showMessage('productMessage', 'Gabim: ' + error.message, 'danger');
+                }
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             checkAuth();
             loadSuppliers();
             loadCategories();
             loadProducts();
-            loadCategoriesForProduct();
-            loadSuppliersForProduct();
+            loadOrders();
         });
 
         // Refresh data every 30 seconds
@@ -789,6 +843,7 @@
             loadSuppliers();
             loadCategories();
             loadProducts();
+            loadOrders();
         }, 30000);
     </script>
 </body>

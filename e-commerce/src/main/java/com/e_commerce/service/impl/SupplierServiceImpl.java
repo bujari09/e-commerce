@@ -46,6 +46,7 @@ public class SupplierServiceImpl implements SupplierService {
             System.out.println("User ID: " + supplierDto.getUserId());
             System.out.println("Email: " + supplierDto.getEmail());
             System.out.println("Phone: " + supplierDto.getPhone());
+            System.out.println("Password: " + supplierDto.getPassword());
             
             Supplier supplier = new Supplier();
             // Don't set userId if null to avoid database constraint issues
@@ -55,6 +56,7 @@ public class SupplierServiceImpl implements SupplierService {
             supplier.setName(supplierDto.getName());
             supplier.setEmail(supplierDto.getEmail());
             supplier.setPhone(supplierDto.getPhone());
+            supplier.setPassword(supplierDto.getPassword());
             // Don't set createdAt manually - let @PrePersist handle it
             
             Supplier savedSupplier = supplierRepository.save(supplier);
@@ -79,6 +81,9 @@ public class SupplierServiceImpl implements SupplierService {
         supplier.setName(supplierDto.getName());
         supplier.setEmail(supplierDto.getEmail());
         supplier.setPhone(supplierDto.getPhone());
+        if (supplierDto.getPassword() != null) {
+            supplier.setPassword(supplierDto.getPassword());
+        }
 
         Supplier updatedSupplier = supplierRepository.save(supplier);
         return convertToDto(updatedSupplier);
@@ -99,6 +104,7 @@ public class SupplierServiceImpl implements SupplierService {
         dto.setName(supplier.getName());
         dto.setEmail(supplier.getEmail());
         dto.setPhone(supplier.getPhone());
+        dto.setPassword(supplier.getPassword());
         return dto;
     }
 }
